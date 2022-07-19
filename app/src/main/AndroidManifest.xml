@@ -14,6 +14,9 @@
         android:theme="@style/Theme.CoordinatorLayoutTest"
         tools:targetApi="31">
         <activity
+            android:name=".NormalActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
