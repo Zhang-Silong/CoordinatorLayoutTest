@@ -4,34 +4,62 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".NormalActivity">
+
+    <!--
+    noScroll:不参与滑动
+    scroll:参与滑动
+    exitUntilCollapsed:开始滑动时，view会折叠到最小高度，只有滑到顶部才能完全展开
+    enterAlways:上滑view立即隐藏，下滑立即展开
+    enterAlwaysCollapsed:配合enterAlways使用，上滑view立即隐藏，下滑会展开最小高度，滑动到顶部完全展开
+    snap:具有吸附效果:当前滑动停止，View离底部更近，那么就会折叠；反之则会展开
+    -->
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
         <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="300dp"
+            android:fitsSystemWindows="true">
 
-            <com.google.android.material.appbar.MaterialToolbar
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/collapsing"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
-                app:layout_scrollFlags="scroll|enterAlwaysCollapsed">
+                android:layout_height="match_parent"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                android:fitsSystemWindows="true">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="这是一个Toolbar"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    android:layout_gravity="center"/>
+                <!--
+                pin:折叠过程中位置保持不变
+                parallax:折叠过程中产生错位偏移
+                -->
 
-            </com.google.android.material.appbar.MaterialToolbar>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_collapseMode="parallax"
+                    android:background="#03A9F4"
+                    android:fitsSystemWindows="true"/>
+
+
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?actionBarSize"
+                    app:layout_collapseMode="pin"
+                    />
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
 
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -40,6 +68,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/to_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="40dp"
+            android:layout_gravity="bottom|end"
+            android:src="@drawable/top"
+            android:contentDescription="TODO" />
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
